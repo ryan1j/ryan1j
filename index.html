@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const userInfo = {
+                username: username,
+                password: password
+            };
+
+            // Convert object to JSON string
+            const jsonUserInfo = JSON.stringify(userInfo);
+
+            // Send the JSON data to server using XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "saveInfo.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    alert("Login info saved successfully!");
+                    document.getElementById("loginForm").reset(); // Reset the form
+                } else {
+                    alert("Error saving login info!");
+                }
+            };
+            xhr.send(jsonUserInfo);
+        });
+    </script>
+</body>
+</html>
