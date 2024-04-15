@@ -15,33 +15,19 @@
         <button type="submit">Login</button>
     </form>
 
+    <div id="displayInfo"></div>
+
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            const userInfo = {
-                username: username,
-                password: password
-            };
+            const displayInfo = document.getElementById("displayInfo");
+            displayInfo.innerHTML = "<p>Username: " + username + "</p><p>Password: " + password + "</p>";
 
-            // Convert object to JSON string
-            const jsonUserInfo = JSON.stringify(userInfo);
-
-            // Send the JSON data to server using XMLHttpRequest
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "saveInfo.php", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    alert("Login info saved successfully!");
-                    document.getElementById("loginForm").reset(); // Reset the form
-                } else {
-                    alert("Error saving login info!");
-                }
-            };
-            xhr.send(jsonUserInfo);
+            // Optional: Clear the form after displaying info
+            // document.getElementById("loginForm").reset();
         });
     </script>
 </body>
