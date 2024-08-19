@@ -12,6 +12,7 @@
         <p id="balance">Balance: $1000</p>
         <button onclick="showHome()">Home</button>
 
+        <!-- Home Screen -->
         <div id="home" class="game visible">
             <h2>Welcome</h2>
             <button onclick="showGame('slots')">Play Slots</button>
@@ -20,6 +21,7 @@
             <button onclick="showGame('dice')">Roll Dice</button>
         </div>
 
+        <!-- Slots Game -->
         <div id="slots" class="game">
             <h2>Slots</h2>
             <input type="number" id="slots-bet" placeholder="Bet Amount" min="1" max="1000">
@@ -28,6 +30,7 @@
             <button onclick="showHome()">Back to Home</button>
         </div>
         
+        <!-- Blackjack Game -->
         <div id="blackjack" class="game">
             <h2>Blackjack</h2>
             <input type="number" id="blackjack-bet" placeholder="Bet Amount" min="1" max="1000">
@@ -42,6 +45,7 @@
             <button onclick="showHome()">Back to Home</button>
         </div>
         
+        <!-- Roulette Game -->
         <div id="roulette" class="game">
             <h2>Roulette</h2>
             <input type="number" id="roulette-bet" placeholder="Bet Amount" min="1" max="1000">
@@ -50,6 +54,7 @@
             <button onclick="showHome()">Back to Home</button>
         </div>
 
+        <!-- Dice Game -->
         <div id="dice" class="game">
             <h2>Dice Roll</h2>
             <input type="number" id="dice-bet" placeholder="Bet Amount" min="1" max="1000">
