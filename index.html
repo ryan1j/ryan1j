@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Gambling Website</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; }
+        .game { margin-bottom: 30px; }
+        button { margin: 5px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fake Gambling Website</h1>
+        <p id="balance">Balance: $1000</p>
+        
+        <div class="game" id="slots">
+            <h2>Slots</h2>
+            <button onclick="playSlots()">Spin</button>
+            <p id="slots-result"></p>
+        </div>
+        
+        <div class="game" id="blackjack">
+            <h2>Blackjack</h2>
+            <button onclick="playBlackjack()">Deal</button>
+            <p id="blackjack-result"></p>
+        </div>
+    </div>
 
+    <script>
+        let balance = 1000;
+
+        function updateBalance(amount) {
+            balance += amount;
+            document.getElementById('balance').textContent = 'Balance: $' + balance;
+        }
+
+        function playSlots() {
+            const cost = 100;
+            if (balance < cost) {
+                document.getElementById('slots-result').textContent = 'Not enough money!';
+                return;
+            }
+            updateBalance(-cost);
+            const win = Math.random() < 0.5; // 50% chance to win
+            if (win) {
+                const prize = 300;
+                updateBalance(prize);
+                document.getElementById('slots-result').textContent = 'You won $' + prize + '!';
+            } else {
+                document.getElementById('slots-result').textContent = 'You lost!';
+            }
+        }
+
+        function playBlackjack() {
+            const cost = 200;
+            if (balance < cost) {
+                document.getElementById('blackjack-result').textContent = 'Not enough money!';
+                return;
+            }
+            updateBalance(-cost);
+            const win = Math.random() < 0.4; // 40% chance to win
+            if (win) {
+                const prize = 500;
+                updateBalance(prize);
+                document.getElementById('blackjack-result').textContent = 'You won $' + prize + '!';
+            } else {
+                document.getElementById('blackjack-result').textContent = 'You lost!';
+            }
+        }
+    </script>
+</body>
+</html>
