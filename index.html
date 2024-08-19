@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Gambling Games</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -22,7 +23,7 @@
         </div>
 
         <!-- Slots Game -->
-        <div id="slots" class="game">
+        <div id="slots" class="game hidden">
             <h2>Slots</h2>
             <input type="number" id="slots-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="playSlots()">Spin</button>
@@ -31,7 +32,7 @@
         </div>
         
         <!-- Blackjack Game -->
-        <div id="blackjack" class="game">
+        <div id="blackjack" class="game hidden">
             <h2>Blackjack</h2>
             <input type="number" id="blackjack-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="startBlackjack()">Deal</button>
@@ -46,7 +47,7 @@
         </div>
         
         <!-- Roulette Game -->
-        <div id="roulette" class="game">
+        <div id="roulette" class="game hidden">
             <h2>Roulette</h2>
             <input type="number" id="roulette-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="playRoulette()">Spin</button>
@@ -55,7 +56,7 @@
         </div>
 
         <!-- Dice Game -->
-        <div id="dice" class="game">
+        <div id="dice" class="game hidden">
             <h2>Dice Roll</h2>
             <input type="number" id="dice-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="rollDice()">Roll</button>
@@ -63,6 +64,5 @@
             <button onclick="showHome()">Back to Home</button>
         </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
