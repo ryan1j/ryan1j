@@ -3,19 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Gambling Website</title>
+    <title>Interactive Gambling Game</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { width: 80%; margin: auto; }
-        .game { margin-bottom: 30px; }
-        button { margin: 5px; padding: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .game {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Fake Gambling Website</h1>
+        <h1>Interactive Gambling Games</h1>
         <p id="balance">Balance: $1000</p>
-        
+
         <div class="game" id="slots">
             <h2>Slots</h2>
             <button onclick="playSlots()">Spin</button>
@@ -26,6 +65,18 @@
             <h2>Blackjack</h2>
             <button onclick="playBlackjack()">Deal</button>
             <p id="blackjack-result"></p>
+        </div>
+        
+        <div class="game" id="roulette">
+            <h2>Roulette</h2>
+            <button onclick="playRoulette()">Spin</button>
+            <p id="roulette-result"></p>
+        </div>
+
+        <div class="game" id="dice">
+            <h2>Dice Roll</h2>
+            <button onclick="rollDice()">Roll</button>
+            <p id="dice-result"></p>
         </div>
     </div>
 
@@ -44,7 +95,7 @@
                 return;
             }
             updateBalance(-cost);
-            const win = Math.random() < 0.5; // 50% chance to win
+            const win = Math.random() < 0.5; 
             if (win) {
                 const prize = 300;
                 updateBalance(prize);
@@ -61,13 +112,48 @@
                 return;
             }
             updateBalance(-cost);
-            const win = Math.random() < 0.4; // 40% chance to win
+            const win = Math.random() < 0.4; 
             if (win) {
                 const prize = 500;
                 updateBalance(prize);
                 document.getElementById('blackjack-result').textContent = 'You won $' + prize + '!';
             } else {
                 document.getElementById('blackjack-result').textContent = 'You lost!';
+            }
+        }
+
+        function playRoulette() {
+            const cost = 150;
+            if (balance < cost) {
+                document.getElementById('roulette-result').textContent = 'Not enough money!';
+                return;
+            }
+            updateBalance(-cost);
+            const win = Math.random() < 0.3; 
+            if (win) {
+                const prize = 400;
+                updateBalance(prize);
+                document.getElementById('roulette-result').textContent = 'You won $' + prize + '!';
+            } else {
+                document.getElementById('roulette-result').textContent = 'You lost!';
+            }
+        }
+
+        function rollDice() {
+            const cost = 50;
+            if (balance < cost) {
+                document.getElementById('dice-result').textContent = 'Not enough money!';
+                return;
+            }
+            updateBalance(-cost);
+            const roll = Math.floor(Math.random() * 6) + 1;
+            const win = roll === 6; 
+            if (win) {
+                const prize = 200;
+                updateBalance(prize);
+                document.getElementById('dice-result').textContent = 'You rolled a 6 and won $' + prize + '!';
+            } else {
+                document.getElementById('dice-result').textContent = 'You rolled a ' + roll + '. You lost!';
             }
         }
     </script>
