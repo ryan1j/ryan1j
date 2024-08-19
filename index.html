@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Gambling Game</title>
+    <title>Interactive Gambling Games</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             background-color: #fafafa;
+            display: none;
         }
         h1 {
             color: #333;
@@ -48,54 +49,103 @@
             font-size: 18px;
             margin: 10px 0;
         }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 80px;
+            margin-right: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Interactive Gambling Games</h1>
         <p id="balance">Balance: $1000</p>
+        <button onclick="showHome()">Home</button>
 
-        <div class="game" id="slots">
+        <div id="home" class="game visible">
+            <h2>Welcome</h2>
+            <button onclick="showGame('slots')">Play Slots</button>
+            <button onclick="showGame('blackjack')">Play Blackjack</button>
+            <button onclick="showGame('roulette')">Play Roulette</button>
+            <button onclick="showGame('dice')">Roll Dice</button>
+        </div>
+
+        <div id="slots" class="game">
             <h2>Slots</h2>
+            <input type="number" id="slots-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="playSlots()">Spin</button>
             <p id="slots-result"></p>
+            <button onclick="showHome()">Back to Home</button>
         </div>
         
-        <div class="game" id="blackjack">
+        <div id="blackjack" class="game">
             <h2>Blackjack</h2>
-            <button onclick="playBlackjack()">Deal</button>
-            <p id="blackjack-result"></p>
+            <input type="number" id="blackjack-bet" placeholder="Bet Amount" min="1" max="1000">
+            <button onclick="startBlackjack()">Deal</button>
+            <div id="blackjack-game" class="hidden">
+                <p id="blackjack-cards"></p>
+                <p id="blackjack-total"></p>
+                <button onclick="hit()">Hit</button>
+                <button onclick="stand()">Stand</button>
+                <p id="blackjack-result"></p>
+            </div>
+            <button onclick="showHome()">Back to Home</button>
         </div>
         
-        <div class="game" id="roulette">
+        <div id="roulette" class="game">
             <h2>Roulette</h2>
+            <input type="number" id="roulette-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="playRoulette()">Spin</button>
             <p id="roulette-result"></p>
+            <button onclick="showHome()">Back to Home</button>
         </div>
 
-        <div class="game" id="dice">
+        <div id="dice" class="game">
             <h2>Dice Roll</h2>
+            <input type="number" id="dice-bet" placeholder="Bet Amount" min="1" max="1000">
             <button onclick="rollDice()">Roll</button>
             <p id="dice-result"></p>
+            <button onclick="showHome()">Back to Home</button>
         </div>
     </div>
 
     <script>
         let balance = 1000;
+        let blackjackDeck, playerHand, dealerHand;
 
         function updateBalance(amount) {
             balance += amount;
             document.getElementById('balance').textContent = 'Balance: $' + balance;
         }
 
+        function showHome() {
+            document.querySelectorAll('.game').forEach(game => game.classList.add('hidden'));
+            document.getElementById('home').classList.remove('hidden');
+        }
+
+        function showGame(gameId) {
+            document.querySelectorAll('.game').forEach(game => game.classList.add('hidden'));
+            document.getElementById(gameId).classList.remove('hidden');
+            document.getElementById('home').classList.add('hidden');
+        }
+
         function playSlots() {
-            const cost = 100;
+            const cost = parseInt(document.getElementById('slots-bet').value, 10) || 0;
             if (balance < cost) {
                 document.getElementById('slots-result').textContent = 'Not enough money!';
                 return;
             }
             updateBalance(-cost);
-            const win = Math.random() < 0.5; 
+            const win = Math.random() < 0.5;
             if (win) {
                 const prize = 300;
                 updateBalance(prize);
@@ -105,31 +155,121 @@
             }
         }
 
-        function playBlackjack() {
-            const cost = 200;
+        function startBlackjack() {
+            const cost = parseInt(document.getElementById('blackjack-bet').value, 10) || 0;
             if (balance < cost) {
                 document.getElementById('blackjack-result').textContent = 'Not enough money!';
                 return;
             }
             updateBalance(-cost);
-            const win = Math.random() < 0.4; 
-            if (win) {
-                const prize = 500;
-                updateBalance(prize);
-                document.getElementById('blackjack-result').textContent = 'You won $' + prize + '!';
-            } else {
-                document.getElementById('blackjack-result').textContent = 'You lost!';
+            blackjackDeck = createDeck();
+            shuffleDeck(blackjackDeck);
+            playerHand = [dealCard(), dealCard()];
+            dealerHand = [dealCard(), dealCard()];
+            showBlackjackGame();
+            updateBlackjackStatus();
+        }
+
+        function createDeck() {
+            const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            const deck = [];
+            for (const suit of suits) {
+                for (const value of values) {
+                    deck.push({ value, suit });
+                }
+            }
+            return deck;
+        }
+
+        function shuffleDeck(deck) {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
             }
         }
 
+        function dealCard() {
+            return blackjackDeck.pop();
+        }
+
+        function handTotal(hand) {
+            let total = 0;
+            let aces = 0;
+            for (const card of hand) {
+                if (['J', 'Q', 'K'].includes(card.value)) {
+                    total += 10;
+                } else if (card.value === 'A') {
+                    aces += 1;
+                    total += 11;
+                } else {
+                    total += parseInt(card.value, 10);
+                }
+            }
+            while (total > 21 && aces > 0) {
+                total -= 10;
+                aces -= 1;
+            }
+            return total;
+        }
+
+        function showBlackjackGame() {
+            document.getElementById('blackjack-game').classList.remove('hidden');
+            document.getElementById('blackjack-result').textContent = '';
+        }
+
+        function updateBlackjackStatus() {
+            document.getElementById('blackjack-cards').textContent = 'Your hand: ' + formatHand(playerHand) + ' (Total: ' + handTotal(playerHand) + ')';
+            document.getElementById('blackjack-total').textContent = 'Dealer’s hand: ' + formatHand(dealerHand, true) + ' (Total: ' + handTotal(dealerHand) + ')';
+        }
+
+        function formatHand(hand, hideFirstCard = false) {
+            return hand.map((card, index) => {
+                if (hideFirstCard && index === 0) {
+                    return '[Hidden]';
+                } else {
+                    return `${card.value} of ${card.suit}`;
+                }
+            }).join(', ');
+        }
+
+                function hit() {
+            playerHand.push(dealCard());
+            updateBlackjackStatus();
+            if (handTotal(playerHand) > 21) {
+                document.getElementById('blackjack-result').textContent = 'Busted! You lost.';
+                setTimeout(startBlackjack, 2000); // Restart game after a short delay
+            }
+        }
+
+        function stand() {
+            while (handTotal(dealerHand) < 17) {
+                dealerHand.push(dealCard());
+            }
+            const playerTotal = handTotal(playerHand);
+            const dealerTotal = handTotal(dealerHand);
+            let result;
+            if (dealerTotal > 21 || playerTotal > dealerTotal) {
+                result = 'You win!';
+                updateBalance(parseInt(document.getElementById('blackjack-bet').value, 10) * 2);
+            } else if (playerTotal < dealerTotal) {
+                result = 'Dealer wins!';
+            } else {
+                result = 'Push!';
+                updateBalance(parseInt(document.getElementById('blackjack-bet').value, 10));
+            }
+            document.getElementById('blackjack-result').textContent = result;
+            setTimeout(startBlackjack, 2000); // Restart game after a short delay
+        }
+
         function playRoulette() {
-            const cost = 150;
+            const cost = parseInt(document.getElementById('roulette-bet').value, 10) || 0;
             if (balance < cost) {
                 document.getElementById('roulette-result').textContent = 'Not enough money!';
                 return;
             }
             updateBalance(-cost);
-            const win = Math.random() < 0.3; 
+            const win = Math.random() < 0.3;
             if (win) {
                 const prize = 400;
                 updateBalance(prize);
@@ -140,14 +280,14 @@
         }
 
         function rollDice() {
-            const cost = 50;
+            const cost = parseInt(document.getElementById('dice-bet').value, 10) || 0;
             if (balance < cost) {
                 document.getElementById('dice-result').textContent = 'Not enough money!';
                 return;
             }
             updateBalance(-cost);
             const roll = Math.floor(Math.random() * 6) + 1;
-            const win = roll === 6; 
+            const win = roll === 6;
             if (win) {
                 const prize = 200;
                 updateBalance(prize);
