@@ -29,17 +29,30 @@
         .flashcard:hover {
             transform: scale(1.1);
         }
-        .flashcard .symbol {
+        .flashcard .symbol,
+        .flashcard .name {
             font-size: 2em;
             font-weight: bold;
         }
         .flashcard .name {
             display: none;
-            font-size: 1.2em;
+        }
+        #toggleView {
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
         }
     </style>
 </head>
 <body>
+
+<div id="toggleView">
+    <label for="viewSelect">Show first:</label>
+    <select id="viewSelect" onchange="toggleView()">
+        <option value="symbol">Symbol</option>
+        <option value="name">Name</option>
+    </select>
+</div>
 
 <div class="flashcard" onclick="toggleFlashcard(this)">
     <div class="symbol">H</div>
@@ -81,8 +94,142 @@
     <div class="symbol">Ne</div>
     <div class="name">Neon</div>
 </div>
-
-<!-- Continue adding other elements -->
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Na</div>
+    <div class="name">Sodium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Mg</div>
+    <div class="name">Magnesium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Al</div>
+    <div class="name">Aluminum</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Si</div>
+    <div class="name">Silicon</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">P</div>
+    <div class="name">Phosphorus</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">S</div>
+    <div class="name">Sulfur</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Cl</div>
+    <div class="name">Chlorine</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ar</div>
+    <div class="name">Argon</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">K</div>
+    <div class="name">Potassium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ca</div>
+    <div class="name">Calcium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ti</div>
+    <div class="name">Titanium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">V</div>
+    <div class="name">Vanadium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Cr</div>
+    <div class="name">Chromium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Mn</div>
+    <div class="name">Manganese</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Fe</div>
+    <div class="name">Iron</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Co</div>
+    <div class="name">Cobalt</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ni</div>
+    <div class="name">Nickel</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Cu</div>
+    <div class="name">Copper</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Zn</div>
+    <div class="name">Zinc</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">As</div>
+    <div class="name">Arsenic</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Br</div>
+    <div class="name">Bromine</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Kr</div>
+    <div class="name">Krypton</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Pd</div>
+    <div class="name">Palladium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ag</div>
+    <div class="name">Silver</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Sn</div>
+    <div class="name">Tin</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">I</div>
+    <div class="name">Iodine</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Xe</div>
+    <div class="name">Xenon</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ba</div>
+    <div class="name">Barium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">W</div>
+    <div class="name">Tungsten</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Pt</div>
+    <div class="name">Platinum</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Au</div>
+    <div class="name">Gold</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Hg</div>
+    <div class="name">Mercury</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Pb</div>
+    <div class="name">Lead</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Rn</div>
+    <div class="name">Radon</div>
+</div>
 
 <script>
     function toggleFlashcard(card) {
@@ -96,7 +243,24 @@
             symbol.style.display = 'block';
         }
     }
-</script>
 
-</body>
-</html>
+    function toggleView() {
+        const viewSelect = document.getElementById('viewSelect').value;
+        const flashcards = document.querySelectorAll('.flashcard');
+
+        flashcards.forEach(card => {
+            const symbol = card.querySelector('.symbol');
+            const name = card.querySelector('.name');
+
+            if (viewSelect === 'symbol') {
+                symbol.style.display = 'block';
+                name.style.display = 'none';
+            } else {
+                symbol.style.display = 'none';
+                name.style.display = 'block';
+            }
+        });
+    }
+
+    // Initialize view based on the default selection
+    toggleView();
