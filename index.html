@@ -3,66 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Gambling Games</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>Periodic Table Flashcards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .flashcard {
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 100px;
+            height: 150px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .flashcard:hover {
+            transform: scale(1.1);
+        }
+        .flashcard .symbol {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .flashcard .name {
+            display: none;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Interactive Gambling Games</h1>
-        <p id="balance">Balance: $1000</p>
-        <button onclick="showHome()">Home</button>
 
-        <!-- Home Screen -->
-        <div id="home" class="game visible">
-            <h2>Welcome</h2>
-            <button onclick="showGame('slots')">Play Slots</button>
-            <button onclick="showGame('blackjack')">Play Blackjack</button>
-            <button onclick="showGame('roulette')">Play Roulette</button>
-            <button onclick="showGame('dice')">Roll Dice</button>
-        </div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">H</div>
+    <div class="name">Hydrogen</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">He</div>
+    <div class="name">Helium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Li</div>
+    <div class="name">Lithium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Be</div>
+    <div class="name">Beryllium</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">B</div>
+    <div class="name">Boron</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">C</div>
+    <div class="name">Carbon</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">N</div>
+    <div class="name">Nitrogen</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">O</div>
+    <div class="name">Oxygen</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">F</div>
+    <div class="name">Fluorine</div>
+</div>
+<div class="flashcard" onclick="toggleFlashcard(this)">
+    <div class="symbol">Ne</div>
+    <div class="name">Neon</div>
+</div>
 
-        <!-- Slots Game -->
-        <div id="slots" class="game hidden">
-            <h2>Slots</h2>
-            <input type="number" id="slots-bet" placeholder="Bet Amount" min="1" max="1000">
-            <button onclick="playSlots()">Spin</button>
-            <p id="slots-result"></p>
-            <button onclick="showHome()">Back to Home</button>
-        </div>
-        
-        <!-- Blackjack Game -->
-        <div id="blackjack" class="game hidden">
-            <h2>Blackjack</h2>
-            <input type="number" id="blackjack-bet" placeholder="Bet Amount" min="1" max="1000">
-            <button onclick="startBlackjack()">Deal</button>
-            <div id="blackjack-game" class="hidden">
-                <p id="blackjack-cards"></p>
-                <p id="blackjack-total"></p>
-                <button onclick="hit()">Hit</button>
-                <button onclick="stand()">Stand</button>
-                <p id="blackjack-result"></p>
-            </div>
-            <button onclick="showHome()">Back to Home</button>
-        </div>
-        
-        <!-- Roulette Game -->
-        <div id="roulette" class="game hidden">
-            <h2>Roulette</h2>
-            <input type="number" id="roulette-bet" placeholder="Bet Amount" min="1" max="1000">
-            <button onclick="playRoulette()">Spin</button>
-            <p id="roulette-result"></p>
-            <button onclick="showHome()">Back to Home</button>
-        </div>
+<!-- Continue adding other elements -->
 
-        <!-- Dice Game -->
-        <div id="dice" class="game hidden">
-            <h2>Dice Roll</h2>
-            <input type="number" id="dice-bet" placeholder="Bet Amount" min="1" max="1000">
-            <button onclick="rollDice()">Roll</button>
-            <p id="dice-result"></p>
-            <button onclick="showHome()">Back to Home</button>
-        </div>
-    </div>
+<script>
+    function toggleFlashcard(card) {
+        const symbol = card.querySelector('.symbol');
+        const name = card.querySelector('.name');
+        if (name.style.display === 'none') {
+            name.style.display = 'block';
+            symbol.style.display = 'none';
+        } else {
+            name.style.display = 'none';
+            symbol.style.display = 'block';
+        }
+    }
+</script>
+
 </body>
 </html>
